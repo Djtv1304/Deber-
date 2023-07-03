@@ -26,9 +26,10 @@ public class InterfaceArbol extends JFrame{
     private JPanel JListPanel;
     private List<Arbol> listaEquipos = new ArrayList<>();
     private List<Arbol> listaNodosVacios = new ArrayList<>();
-    private int contadorClickJugar = 0;
-    private int alturaArbol = 0;
-    private int rondaActual = 1;
+    private static int contadorClickJugar = 0;
+    private int alturaArbol = 0; //No uso mucho
+    private static int rondaActual = 1;
+    private static int numRondas = 0;
     private int numEquiposIniciales;
     private int numEquiposTracking;
     private int numPartidosTotales;
@@ -45,6 +46,9 @@ public class InterfaceArbol extends JFrame{
         crearArbolButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                listaEquipos.clear();
+                listaNodosVacios.clear();
 
                 numEquiposIniciales = comboBox1.getSelectedIndex();
 
@@ -77,8 +81,10 @@ public class InterfaceArbol extends JFrame{
                 }
 
                 alturaArbol = (int) (Math.log(numEquiposIniciales) / Math.log(2)) + 1; //Altura del arbol
+                System.out.println("EQUIPOS INICIALES: "+numEquiposIniciales);
                 numEquiposTracking = numEquiposIniciales;
-                rondaActual = (int)(Math.log(numEquiposIniciales) / Math.log(2));
+                System.out.println("Tracking first: " + numEquiposTracking);
+                numRondas = (int)(Math.log(numEquiposIniciales) / Math.log(2) + 1);
 
                 for(int i = 0; i< numEquiposIniciales; i++){
                     String equipo = JOptionPane.showInputDialog(null, "Ingresa nombre del equipo: ");
@@ -88,7 +94,7 @@ public class InterfaceArbol extends JFrame{
                     listaEquipos.add(ar1);
                 }
 
-                numEquiposIniciales = numEquiposIniciales /2;
+                numEquiposIniciales = numEquiposIniciales /2; //NO MODIFICAR
 
                 for(int i = 0; i< numEquiposIniciales; i++){
                     //Nodos vacios
@@ -98,15 +104,18 @@ public class InterfaceArbol extends JFrame{
                     numEquiposIniciales = numEquiposIniciales /2;
                 }
 
-                DefaultListModel<String> listModel = (DefaultListModel<String>) list1.getModel();
-                listModel.addElement("Lista de equipos:\n"+listaEquipos.toString());
+                if (!listaEquipos.isEmpty()) {
+                    DefaultListModel<String> listModel = (DefaultListModel<String>) list1.getModel();
+                    listModel.addElement("Lista de equipos:\n"+listaEquipos.toString());
+                }
 
 
-                infoLabel.setText("-\tInformación\n" + "Ronda 1: " + numEquiposIniciales + " equipos restantes.");
+
+                infoLabel.setText("-\tInformación\n" + "Ronda 1: " + numEquiposTracking + " equipos restantes.");
 
                 llenarComboBoxEquipos();
 
-                numPartidosTotales = numEquiposTracking/2;
+                //numPartidosTotales = numEquiposTracking/2;
 
             }
         });
@@ -177,12 +186,12 @@ public class InterfaceArbol extends JFrame{
                     llenarComboBoxEquipos();
 
                     contadorClickJugar++;
+                    System.out.println("Tracking: " + numEquiposTracking);
                     System.out.println(contadorClickJugar + " == " + numEquiposTracking/2);
                     if (contadorClickJugar == numEquiposTracking / 2) {
                         System.out.println("Ronda actual: " + rondaActual);
 
                         String nombreLista = "list" + rondaActual; // construye el nombre de la lista
-
 
                         DefaultListModel<String> listModel = new DefaultListModel<>();
                         listModel.addElement("Lista de equipos :\n");
@@ -199,9 +208,9 @@ public class InterfaceArbol extends JFrame{
                     }
 
                     numPartidosTotales++;
-                    infoLabel.setText("-  Información - " + " Ronda " + rondaActual + ": " + numEquiposTracking + " equipos restantes.");
+                    infoLabel.setText("-  Información - " + " Ronda " + numRondas + ": " + numEquiposTracking + " equipos restantes.");
 
-                    if (rondaActual > rondaActual) {
+                    if (rondaActual > numRondas) {
                         System.out.println("No quedan rondas restantes");
                     }
                 }

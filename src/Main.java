@@ -14,7 +14,7 @@ public class Main {
                 principalForm.setVisible(true);
 
 
-                for (int i=0;i<10;i++) {
+                for (int i=0;i<7;i++) {
                     presionarBoton();
                 }
             }
@@ -22,7 +22,7 @@ public class Main {
     }
 
     static int numEquipos = 8; // número de equipos
-    static int numRondas = (int)(Math.log(numEquipos) / Math.log(2)); // número de rondas
+    static int numRondas = (int)(Math.log(numEquipos) / Math.log(2) + 1); // número de rondas
     static int rondaActual = 1; // ronda actual
     static int contadorBoton = 0; // contador de veces que se ha presionado el botón
     static int equiposRestantes = numEquipos; // número de equipos restantes en la ronda actual
@@ -32,9 +32,9 @@ public class Main {
         contadorBoton++; // incrementa el contador de veces que se ha presionado el botón
 
 // verifica si se debe cambiar de ronda
-        System.out.println(contadorBoton + " == " + equiposRestantes/2);
+        System.out.println("Contador boton: "+contadorBoton + " == " +"Equipos restantes/2:"+ equiposRestantes/2);
         if (contadorBoton == equiposRestantes / 2) {
-            System.out.println("Ronda actual: " + rondaActual);
+            System.out.println("Ronda actual: " + rondaActual + "\n\n");
             rondaActual++; // incrementa la ronda actual
             contadorBoton = 0; // reinicia el contador de veces que se ha presionado el botón
             equiposRestantes /= 2; // reduce a la mitad el número de equipos restantes
