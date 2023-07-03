@@ -101,9 +101,12 @@ public class InterfaceArbol extends JFrame{
                 DefaultListModel<String> listModel = (DefaultListModel<String>) list1.getModel();
                 listModel.addElement("Lista de equipos:\n"+listaEquipos.toString());
 
+
                 infoLabel.setText("-\tInformación\n" + "Ronda 1: " + numEquiposIniciales + " equipos restantes.");
 
                 llenarComboBoxEquipos();
+
+                numPartidosTotales = numEquiposTracking/2;
 
             }
         });
@@ -187,11 +190,8 @@ public class InterfaceArbol extends JFrame{
                             listModel.addElement("Equipo: "+x.raiz.clave);
                         }
 
-
                         JList<String> lista = (JList<String>)getComponentByName(nombreLista);
                         lista.setModel(listModel);
-
-
 
                         rondaActual++; // incrementa la ronda actual
                         contadorClickJugar = 0; // reinicia el contador de veces que se ha presionado el botón
@@ -218,7 +218,6 @@ public class InterfaceArbol extends JFrame{
 
     private Component getComponentByName(String name) {
         for (Component component : JListPanel.getComponents()) {
-            System.out.println("Nombre de los componentes: " + component.getName());
             if (name.equals(component.getName())) {
                 return component;
 
