@@ -1,17 +1,17 @@
 public class PruebaArbol {
 
-    static int sumaClaves (NodoArbol arbol) {
-        int resul;
+    static String sumaClaves (NodoArbol arbol) {
+        String resul;
         if (arbol != null) {
             resul = arbol.clave + sumaClaves(arbol.iz) + sumaClaves(arbol.de);
         } else {
-            resul = 0;
+            resul = null;
         }
         return resul;
     }
 
 
-    static int sumaClaves (Arbol a){
+    static String sumaClaves (Arbol a){
         return sumaClaves(a.raiz);
     }
 

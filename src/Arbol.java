@@ -6,11 +6,11 @@ public class Arbol {
         nombre = null;
     }
 
-    public Arbol(int dato) {
-        raiz = new NodoArbol(dato, null, null);
+    public Arbol(String nombreEquipo) {
+        raiz = new NodoArbol(nombreEquipo, null, null);
     }
 
-    public Arbol(int dato, String nombreArbol) {
+    public Arbol(String dato, String nombreArbol) {
         raiz = new NodoArbol(dato, null, null);
         nombre = nombreArbol;
     }
@@ -60,23 +60,27 @@ public class Arbol {
         ordenarCentral(raiz);
     }
 
-    public String juntarArboles(int dato, Arbol a1, Arbol a2) {
+    public NodoArbol juntarArboles(String dato, Arbol a1, Arbol a2) {
         String mensaje;
         if (a1.raiz == a2.raiz && a1.raiz != null) {
             mensaje = "No se pueden mezclar los arboles ya que las raíces son similares";
-            return mensaje;
+            return null;
         }
 
         raiz = new NodoArbol(dato, a1.raiz, a2.raiz);
 
-        if (this != a1){
+/*        if (this != a1){
             a1.raiz = null;
         }
         if (this != a2){
             a2.raiz = null;
-        }
+        }*/
 
-        return mensaje = "Los árboles han sido juntados exitosamente";
+        return raiz;
     }
 
+    @Override
+    public String toString() {
+        return raiz.clave +"\n";
+    }
 }

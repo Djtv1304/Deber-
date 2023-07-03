@@ -1,5 +1,20 @@
+import javax.swing.*;
+import java.awt.*;
+
 public class Main {
+
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                InterfaceArbol principalForm = new InterfaceArbol();
+                principalForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                principalForm.setBounds(200,200,800,500);
+                principalForm.setContentPane(principalForm.getMainPanel());
+                principalForm.setVisible(true);
+            }
+        });
     }
+
+
 }
