@@ -14,14 +14,14 @@ public class Main {
                 principalForm.setVisible(true);
 
 
-                for (int i=0;i<7;i++) {
+                /*for (int i=0;i<7;i++) {
                     presionarBoton();
-                }
+                }*/
             }
         });
     }
 
-    static int numEquipos = 8; // número de equipos
+    /*static int numEquipos = 8; // número de equipos
     static int numRondas = (int)(Math.log(numEquipos) / Math.log(2) + 1); // número de rondas
     static int rondaActual = 1; // ronda actual
     static int contadorBoton = 0; // contador de veces que se ha presionado el botón
@@ -44,5 +44,5 @@ public class Main {
         if (rondaActual > numRondas) {
             System.out.println("No quedan rondas restantes");
         }
-    }
+    }*/
 }

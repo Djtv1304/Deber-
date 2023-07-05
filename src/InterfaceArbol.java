@@ -43,6 +43,31 @@ public class InterfaceArbol extends JFrame{
         list5.setName("list5");
         list6.setName("list6");
 
+
+        DefaultListCellRenderer renderer1 = (DefaultListCellRenderer) list1.getCellRenderer();
+        renderer1.setHorizontalAlignment(SwingConstants.CENTER);
+        renderer1.setVerticalAlignment(SwingConstants.CENTER);
+
+        DefaultListCellRenderer renderer2 = (DefaultListCellRenderer) list2.getCellRenderer();
+        renderer2.setHorizontalAlignment(SwingConstants.CENTER);
+        renderer2.setVerticalAlignment(SwingConstants.BOTTOM);
+
+        DefaultListCellRenderer renderer3 = (DefaultListCellRenderer) list3.getCellRenderer();
+        renderer3.setHorizontalAlignment(SwingConstants.CENTER);
+        renderer3.setVerticalAlignment(SwingConstants.CENTER);
+
+        DefaultListCellRenderer renderer4 = (DefaultListCellRenderer) list4.getCellRenderer();
+        renderer4.setHorizontalAlignment(SwingConstants.CENTER);
+        renderer4.setVerticalAlignment(SwingConstants.CENTER);
+
+        DefaultListCellRenderer renderer5 = (DefaultListCellRenderer) list5.getCellRenderer();
+        renderer5.setHorizontalAlignment(SwingConstants.CENTER);
+        renderer5.setVerticalAlignment(SwingConstants.CENTER);
+
+        DefaultListCellRenderer renderer6 = (DefaultListCellRenderer) list6.getCellRenderer();
+        renderer6.setHorizontalAlignment(SwingConstants.CENTER);
+        renderer6.setVerticalAlignment(SwingConstants.CENTER);
+
         crearArbolButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -81,13 +106,21 @@ public class InterfaceArbol extends JFrame{
                 }
 
                 alturaArbol = (int) (Math.log(numEquiposIniciales) / Math.log(2)) + 1; //Altura del arbol
-                System.out.println("EQUIPOS INICIALES: "+numEquiposIniciales);
                 numEquiposTracking = numEquiposIniciales;
-                System.out.println("Tracking first: " + numEquiposTracking);
                 numRondas = (int)(Math.log(numEquiposIniciales) / Math.log(2) + 1);
 
                 for(int i = 0; i< numEquiposIniciales; i++){
+
                     String equipo = JOptionPane.showInputDialog(null, "Ingresa nombre del equipo: ");
+
+                    for (Arbol a: listaEquipos) {
+                        if (equipo.equals(a.raiz.clave)) {
+                            JOptionPane.showMessageDialog(null,"Verifique el nombre e ingrese nuevamente los equipos");
+                            listaEquipos.clear();
+                            return;
+                        }
+                    }
+
                     //Creando hojas del arbol
                     Arbol ar1 = new Arbol(equipo);
                     //Añadir a la lista de árboles
@@ -106,7 +139,9 @@ public class InterfaceArbol extends JFrame{
 
                 if (!listaEquipos.isEmpty()) {
                     DefaultListModel<String> listModel = (DefaultListModel<String>) list1.getModel();
-                    listModel.addElement("Lista de equipos:\n"+listaEquipos.toString());
+                    for (Arbol x:listaEquipos){
+                        listModel.addElement("Equipo: "+x.raiz.clave);
+                    }
                 }
 
 
@@ -186,15 +221,13 @@ public class InterfaceArbol extends JFrame{
                     llenarComboBoxEquipos();
 
                     contadorClickJugar++;
-                    System.out.println("Tracking: " + numEquiposTracking);
-                    System.out.println(contadorClickJugar + " == " + numEquiposTracking/2);
                     if (contadorClickJugar == numEquiposTracking / 2) {
-                        System.out.println("Ronda actual: " + rondaActual);
+                        //System.out.println("Ronda actual: " + rondaActual);
 
-                        String nombreLista = "list" + rondaActual; // construye el nombre de la lista
+                        String nombreLista = "list" + (rondaActual + 1); // construye el nombre de la lista
 
                         DefaultListModel<String> listModel = new DefaultListModel<>();
-                        listModel.addElement("Lista de equipos :\n");
+                        //listModel.addElement("Lista de equipos :\n");
                         for (Arbol x:listaEquipos){
                             listModel.addElement("Equipo: "+x.raiz.clave);
                         }
@@ -211,16 +244,9 @@ public class InterfaceArbol extends JFrame{
                     infoLabel.setText("-  Información - " + " Ronda " + numRondas + ": " + numEquiposTracking + " equipos restantes.");
 
                     if (rondaActual > numRondas) {
-                        System.out.println("No quedan rondas restantes");
+                        JOptionPane.showMessageDialog(null,"No quedan rondas restantes");
                     }
                 }
-            }
-        });
-        btnImprimir.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                System.out.println(listaNodosVacios.get(listaNodosVacios.size()-1).toString());
             }
         });
     }
